@@ -25,14 +25,14 @@ jobs:
       
       - name: Run preprocessing script
         run: |
-          cd Eksperimen_SML_AndiArifAbdillah/preprocessing
+          cd preprocessing
           python automate_AndiArifAbdillah.py
       
       - name: Commit processed data
         run: |
           git config --local user.email "andiarifabc@gmail.com"
           git config --local user.name "Andi Arif Abdillah"
-          git add Eksperimen_SML_AndiArifAbdillah/preprocessing/data_preprocessing/
+          git add preprocessing/data_preprocessing/
           git diff --quiet && git diff --staged --quiet || git commit -m "Automated preprocessing - $(date +'%Y-%m-%d %H:%M:%S')"
       
       - name: Push changes
@@ -40,41 +40,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
-```
-
-### **Step 3: Commit workflow file**
-
-1. Nama file akan otomatis: `.github/workflows/blank.yml` 
-2. **Ubah nama file** menjadi: `preprocessing.yml`
-3. Scroll ke bawah
-4. Commit message: "Add automated preprocessing workflow"
-5. Klik **"Commit changes"** (tombol hijau)
-
----
-
-## **VERIFIKASI WORKFLOW**
-
-### **Step 4: Lihat workflow berjalan**
-
-1. Klik tab **"Actions"** (di menu atas)
-2. Anda akan melihat workflow "Automated Data Preprocessing" sedang running (warna kuning) atau sudah selesai (centang hijau/silang merah)
-3. Klik pada workflow run untuk melihat detail
-
-### **Step 5: Jika workflow gagal (X merah)**
-
-Klik pada workflow yang gagal, lalu klik pada job "preprocessing" untuk melihat error di step mana.
-
-**Kemungkinan error dan solusi:**
-
-**Error 1: File automate_AndiArifAbdillah.py tidak ditemukan**
-```
-Error: cd: Eksperimen_SML_AndiArifAbdillah/preprocessing: No such file or directory
-```
-
-**Solusi:** Struktur folder salah. Pastikan struktur folder di repository GitHub seperti ini:
-```
-Eksperimen_SML_AndiArifAbdillah_/
-├── Eksperimen_SML_AndiArifAbdillah/
-│   └── preprocessing/
-│       ├── automate_AndiArifAbdillah.py
-│       └── data_preprocessing/
